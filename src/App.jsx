@@ -1,10 +1,5 @@
 import { useState } from "react";
-
-const productsData = [
-  { id: 1, name: "Product A", price: 20 },
-  { id: 2, name: "Product B", price: 30 },
-  { id: 3, name: "Product C", price: 25 },
-];
+import ShoppingCart from "./component/ShoppingCart";
 
 const App = () => {
   // State สำหรับเก็บข้อมูลสินค้าในตะกร้า
@@ -48,54 +43,3 @@ const App = () => {
 };
 
 export default App;
-
-const ShoppingCart = ({ cartItems, addToCart, onReset, onDelete }) => {
-  // คำนวณจำนวนรายการในตะกร้า
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
-  // คำนวณราคารวม
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
-  return (
-    <div>
-      <h1>Shopping Cart</h1>
-      <ProductList
-        products={productsData}
-        addToCart={addToCart}
-        onReset={onReset}
-        onDelete={onDelete}
-      />
-      <div>
-        <h2>Shopping Cart</h2>
-        <p>Items in Cart: {cartCount}</p>
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              {item.name} x{item.quantity} - ${item.price * item.quantity}
-            </li>
-          ))}
-        </ul>
-        <p>Total Price: ${totalPrice}</p>
-        <button onClick={() => onReset()}>Reset</button>
-      </div>
-    </div>
-  );
-};
-
-const ProductList = ({ products, addToCart, onDelete }) => (
-  <div>
-    <h2>Products</h2>
-    <ul>
-      {products.map((product) => (
-        <li key={product.id}>
-          {product.name} - ${product.price}{" "}
-          <button onClick={() => addToCart(product)}>Add to Cart</button>
-          <button onClick={() => onDelete(product.id)}>Delete</button>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
